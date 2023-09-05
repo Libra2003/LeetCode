@@ -1,20 +1,9 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        numsMap = {}
-        freq = [[] for i in range(len(nums)+1)]
+        hashMap = {}
+        for index, value in enumerate(nums):
+            hashMap[value] = hashMap.get(value, 0) + 1
+        sorted_nums  = sorted(hashMap.items(), key=lambda x: x[1], reverse=True)
+        top_k = [x[0] for x in sorted_nums[:k]]
+        return top_k
 
-        for elements in nums:
-            numsMap[elements] = 1 + numsMap.get(elements, 0)
-        
-        for index, values in numsMap.items():
-            freq[values].append(index)
-        
-        result = []
-        
-        for i in range(len(freq) - 1 , 0 , -1):
-
-            for n in freq[i]:
-                result.append(n)
-                if len(result)==k:
-                    return result
-                
