@@ -1,20 +1,17 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        col = collections.defaultdict(set)
-        row = collections.defaultdict(set)
+        rows = collections.defaultdict(set)
+        column = collections.defaultdict(set)
         square = collections.defaultdict(set)
-
-        for rows in range(9):
-            for column in range(9):
-                if board[rows][column] == '.':
+        for rIndex,rValue in enumerate(board):
+            for cIndex,cValue in enumerate(rValue):
+                if cValue =='.':
                     continue
-                if (board[rows][column] in row[rows] or
-                        board[rows][column] in col[column] or
-                        board[rows][column] in square[(rows // 3, column // 3)]):
-                    return False
-
-                row[rows].add(board[rows][column])
-                col[column].add(board[rows][column])
-                square[(rows // 3, column // 3)].add(board[rows][column])
+                else:
+                    if (cValue in rows[rIndex]) or (cValue in column[cIndex] or (cValue in square[rIndex // 3 , cIndex // 3])):
+                        return False
+                    rows[rIndex].add(cValue)
+                    column[cIndex].add(cValue)
+                    square[(rIndex//3,cIndex // 3)].add(cValue)
 
         return True
