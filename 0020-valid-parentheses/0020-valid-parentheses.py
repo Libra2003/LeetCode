@@ -1,21 +1,15 @@
-class Solution:
-    def isValid(self, s: str) -> bool:
-        top = -1
-        stack = [0] *len(s)
+class Solution(object):
+    def isValid(self, s):
+        stack = [] # only use append and pop
+        pairs = {
+            '(': ')',
+            '{': '}',
+            '[': ']'
+        }
+        for bracket in s:
+            if bracket in pairs:
+                stack.append(bracket)
+            elif len(stack) == 0 or bracket != pairs[stack.pop()]:
+                return False
 
-        for i in range(len(s)):
-            if s[i] == '(' or s[i] == '{' or s[i] == '[':
-                top += 1
-                stack[top] = s[i]
-            else:
-                if (s[i] == ')' and stack[top] != '(') or (s[i] == '}' and stack[top] != '{') or (
-                        s[i] == ']' and stack[top] != '['):
-                    return False
-                else:
-                    stack[top] = 0
-                    top -= 1
-
-        if(top == -1):
-            return True
-        else:
-            return False
+        return len(stack) == 0
