@@ -9,11 +9,11 @@ class Solution:
                 b = int(stack.pop())
 
                 if value == "+":
-                    val = a + b
+                    val = b + a
                 elif value == "-":
                     val = b - a
                 elif value == "*":
-                    val = a * b
+                    val = b * a
                 elif value == "/":
                     val = b / a
 
